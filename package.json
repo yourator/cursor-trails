@@ -1,6 +1,6 @@
 {
-  "name": "cursor-trail",
-  "version": "0.0.1",
+  "name": "cursor-trails",
+  "version": "0.0.2",
   "description": "Use cursor trails on web pages",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/finfin/cursor-trails.git"
+    "url": "git+https://github.com/yourator/cursor-trails.git"
   },
   "keywords": [
     "cursor"
   ],
-  "author": "finfin",
+  "author": "yourator",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/finfin/cursor-trails/issues"
+    "url": "https://github.com/yourator/cursor-trails/issues"
   },
-  "homepage": "https://github.com/finfin/cursor-trails#readme"
+  "homepage": "https://github.com/yourator/cursor-trails#readme"
 }

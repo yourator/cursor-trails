@@ -6,7 +6,7 @@ const IMAGE_URLS = [
   'https://i.imgur.com/YOxgfxw.png',
   'https://i.imgur.com/55Vsqji.png',
   'https://i.imgur.com/rP46Ovp.png',
-  'https://i.imgur.com/KYoL6oi.png'
+  'https://i.imgur.com/KYoL6oi.png',
 ]
 
 
@@ -46,10 +46,6 @@ function snowflakeCursor({
   let canvasImages = []
 
 
-  /**
-   * Particles
-   */
-
   function Particle(x, y, img) {
     const lifeSpan = Math.floor(Math.random() * 60 + 80) * life
     this.initialLifeSpan = lifeSpan //
@@ -59,8 +55,6 @@ function snowflakeCursor({
       y: (1 + Math.random()) * speed,
     }
     this.position = { x, y }
-    // var img = new Image();   // Create new img element
-    // img.src = canvasItem;
     img.width = size
     img.height = size
     this.trailImage = img
@@ -71,7 +65,6 @@ function snowflakeCursor({
       this.lifeSpan--
 
       this.velocity.x += ((Math.random() < 0.5 ? -1 : 1) * 2) / 75
-      // this.velocity.y -= Math.random() / 300
 
       const scale = Math.max(this.lifeSpan / this.initialLifeSpan, 0)
 
@@ -102,42 +95,22 @@ function snowflakeCursor({
   }
 
   function updateParticles() {
-    // console.log(particles.length)
-    let removeParticle = false
-    if (particles.length === 0) { return }
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (particles.length === 0) {
+      return
+    }
+    context.clearRect(0, 0, canvas.width, canvas.height)
+
     // Update
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update(context)
+    }
 
-    if (!reducedMotion) {
-      context.clearRect(0, 0, canvas.width, canvas.height)
-
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update(context)
-      }
-
-      // Remove dead particles
-    } else {
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].lifeSpan = particles[i].lifeSpan - 1
-
-        if (particles[i].lifeSpan < 0) {
-          particles.splice(i, 1)
-          removeParticle = true
-        }
-      }
-
-      if (removeParticle) {
-        context.clearRect(0, 0, canvas.width, canvas.height)
-        for (let i = 0; i < particles.length; i++) {
-          particles[i].update(context)
-        }
+    // Remove dead particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+      if (particles[i].lifeSpan < 0) {
+        particles.splice(i, 1)
       }
     }
-    // for (let i = particles.length - 1; i >= 0; i--) {
-    //   if (particles[i].lifeSpan < 0) {
-    //     particles.splice(i, 1)
-    //   }
-    // }
   }
   function onWindowResize(e) {
     if (hasWrapperEl) {
@@ -161,7 +134,6 @@ function snowflakeCursor({
 
   function onMouseMove(e) {
     const { x, y } = getRelativePosition({ x: e.clientX, y: e.clientY }, canvas)
-    console.log('mm')
     addParticle(x, y)
   }
 
